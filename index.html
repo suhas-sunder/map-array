@@ -7,8 +7,25 @@
   </head>
   <body>
     <h1>Array Map</h1>
-    <label>Map Input</label>
-    <input />
+    <p id="err">Error:</p>
+    <div>
+      <label>Array:</label>
+      <input class="inputs" placeholder="Comma separated values" />
+    </div>
+    <div>
+      <label>Equation:</label>
+      <select>
+        <option>x</option>
+        <option>multiplication: x *</option>
+        <option>addition: x +</option>
+        <option>subtraction: x -</option>
+        <option>division x /</option>
+        <option>power x ^</option>
+      </select>
+      <input class="inputs" placeholder="number" />
+    </div>
+    <button onClick="getInput()">Submit</button>
     <p>Result:</p>
+    <script src="index.js"></script>
   </body>
 </html>
