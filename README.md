@@ -2,4 +2,5 @@
 
 This program behaves similar to array.prototype.map.
 
-<img width="349" alt="image" src="https://github.com/suhas-sunder/map-array/assets/77464593/aff43c0d-40db-4a7e-b4a4-f557040a9e4f">
+<img width="804" alt="image" src="https://github.com/suhas-sunder/map-array/assets/77464593/ca9608b0-8362-4fbe-999e-c5abdd80e0f1">
+
