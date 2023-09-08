@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Array Map</title>
+    <link rel="stylesheet" href="./style.css" />
   </head>
   <body>
     <h1>Array Map</h1>
@@ -14,18 +15,18 @@
     </div>
     <div>
       <label>Equation:</label>
-      <select>
+      <select id="equation" onchange="handleSelection()">
         <option>x</option>
         <option>multiplication: x *</option>
         <option>addition: x +</option>
         <option>subtraction: x -</option>
-        <option>division x /</option>
+        <option>division x &#95;</option>
         <option>power x ^</option>
       </select>
-      <input class="inputs" placeholder="number" />
+      <input id="num" class="inputs" placeholder="number" />
     </div>
     <button onclick="getInput()">Submit</button>
-    <p>Result:</p>
+    <p class="result">Result:</p>
     <script src="index.js"></script>
   </body>
 </html>
