@@ -9,45 +9,62 @@ const getSelectedEqn = () => {
   return equationValue;
 };
 
+// Get the value user selected from drop-down list
 const handleSelection = (e) => {
   const numInputElement = document.getElementById("num");
-  console.log(getSelectedEqn())
+  console.log(getSelectedEqn());
 
   getSelectedEqn() === "x"
     ? (numInputElement.style.display = "none")
     : (numInputElement.style.display = "inline-block");
 };
 
-const getInput = () => {
-  const arrInput = inputElement[0].value;
-  const eqnInput = inputElement[1].value;
+// Display final result to user
+const displayResult = (mappedArr) => {
+  const resultElement = document.getElementById("result");
 
+  resultElement.textContent = `Result: ${
+    mappedArr.length > 1 ? mappedArr.join(", ") : mappedArr
+  }`;
+};
+
+// Perform map operation
+function map(arr, callback) {
+  const mappedArr = [];
+
+  for (let i = 0; i < arr.length; i++) {
+    mappedArr.push(callback(arr[i]));
+  }
+
+  displayResult(mappedArr);
+}
+
+// Determine which operation needs to mapped
+const handleEquation = (arr, num) => {
   const eqn = getSelectedEqn();
 
-  switch (eqn) {
-    case 0:
-      equationValue.includes("*");
-      // Perform map
-      break;
-    case 1:
-      equationValue.includes("+");
-      // Perform map
-      break;
-    case 2:
-      equationValue.includes("-");
-      // Perform map
-      break;
-    case 3:
-      equationValue.includes("/");
-      // Perform map
-      break;
-    case 4:
-      equationValue.includes("^");
-      // Perform map
-      break;
-    default:
-    // No input selected.
+  num = parseInt(num);
+
+  if (eqn.includes("*")) {
+    map(arr, (x) => x * num);
+  } else if (eqn.includes("+")) {
+    map(arr, (x) => x + num);
+  } else if (eqn.includes("-")) {
+    map(arr, (x) => x - num);
+  } else if (eqn.includes("/")) {
+    map(arr, (x) => x / num);
+    console.log("div");
+  } else if (eqn.includes("^")) {
+    map(arr, (x) => Math.pow(x, num));
+  } else {
+    displayResult(arr);
   }
+};
+
+//Prepare input values for mapping & perform input validation
+const handleSubmit = () => {
+  const arrInput = inputElement[0].value;
+  const numInput = inputElement[1].value;
 
   // Display error msg
   const errorMessage = (msg) => {
@@ -55,7 +72,7 @@ const getInput = () => {
     errElement.textContent = msg;
   };
 
-  if (arrInput && eqnInput) {
+  if ((arrInput && numInput) || (getSelectedEqn() === "x" && arrInput)) {
     // Hide error message
     errElement.style.display = "none";
     // Check if Array value is valid & map numbers to a new array.
@@ -65,23 +82,20 @@ const getInput = () => {
     arrInput
       .split(",")
       .forEach((char) =>
-        !isNaN(char.trim())
+        !isNaN(char.trim()) && char !== " "
           ? numsArr.push(parseInt(char))
           : errorMessage(
               "Error: please enter a valid comma separated array of numbers eg. 1, 2, 3, 4!"
             )
       );
 
-    console.log(numsArr.length, arrInput.split(",").length);
+    if (numsArr.length === arrInput.split(",").length)
+      handleEquation(numsArr, numInput);
 
     //If input is not x, display number input.
-    !isNaN(eqnInput.trim())
-      ? console.log(eqnInput.trim())
+    !isNaN(numInput.trim())
+      ? numInput.trim()
       : errorMessage("Please enter a valid number for the selected equation!");
-
-    //Hide equation if option is just x
-    //Implement map operation
-    //Add some CSS styling.
   } else {
     errorMessage("Error: Input fields cannot be empty!");
   }
